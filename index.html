@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <title>Charukesi · Digital Link Portal</title>
+  <!-- Premium Traditional Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Marcellus&display=swap" rel="stylesheet">
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* ---------- DESIGN TOKENS ---------- */
+    :root {
+      --bg-cream: #f6f1ea;
+      --bg-warm: #f0e9e0;
+      --card-bg: #fdfbf8;
+      --card-border: #e8ddd0;
+      --text-primary: #1c1713;
+      --text-secondary: #5a4d42;
+      --text-muted: #9c8c7d;
+      --gold-deep: #a88562;
+      --gold-light: #d4b99b;
+      --gold-shimmer: #e7d6c0;
+      --brown-deep: #4a2f1d;
+      --brown-glow: #8b5e3c;
+      --shadow-soft: 0 8px 20px -8px rgba(80, 60, 40, 0.08);
+      --shadow-elevated: 0 20px 40px -16px rgba(80, 60, 40, 0.16);
+      --shadow-hover: 0 28px 48px -20px rgba(80, 60, 40, 0.22);
+      --radius-card: 36px;
+      --radius-pill: 100px;
+      --font-serif: 'Cormorant Garamond', serif;
+      --font-display: 'Marcellus', serif;
+      --font-sans: 'Inter', sans-serif;
+      --transition-luxe: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* ---------- RESET / BASE ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      background: var(--bg-cream);
+      background-image: 
+        radial-gradient(circle at 15% 10%, rgba(200, 175, 145, 0.18) 0%, transparent 45%),
+        radial-gradient(circle at 85% 90%, rgba(180, 150, 120, 0.12) 0%, transparent 50%);
+      font-family: var(--font-sans);
+      color: var(--text-primary);
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1.25rem 1rem 2rem;
+      position: relative;
+    }
+
+    /* Traditional subtle ornament pattern */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120"><path d="M60 15 L65 25 L75 25 L67 33 L70 43 L60 37 L50 43 L53 33 L45 25 L55 25 Z" fill="none" stroke="%23d4b99b" stroke-width="0.4" opacity="0.12"/></svg>');
+      background-repeat: repeat;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ---------- MAIN PORTAL CARD ---------- */
+    .portal {
+      position: relative;
+      z-index: 1;
+      max-width: 640px;
+      width: 100%;
+      background: var(--card-bg);
+      border-radius: var(--radius-card);
+      box-shadow: 
+        var(--shadow-elevated),
+        0 0 0 1px rgba(200, 175, 145, 0.2) inset,
+        0 2px 0 0 rgba(255, 255, 255, 0.9) inset;
+      padding: 2.5rem 2rem 2.5rem;
+      border: 1px solid rgba(210, 190, 165, 0.3);
+      transition: var(--transition-luxe);
+      animation: cardAppear 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+      overflow: hidden;
+    }
+
+    /* Decorative gold border accent */
+    .portal::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--gold-light), var(--gold-deep), var(--gold-light), transparent);
+      border-radius: 0 0 6px 6px;
+      opacity: 0.7;
+    }
+
+    @keyframes cardAppear {
+      0% { opacity: 0; transform: translateY(24px) scale(0.97); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* ---------- HEADER / IDENTITY ---------- */
+    .identity {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      margin-bottom: 2.25rem;
+      position: relative;
+    }
+
+    .identity::before {
+      content: '❖ ❖ ❖';
+      font-size: 0.65rem;
+      letter-spacing: 0.8em;
+      color: var(--gold-light);
+      margin-bottom: 1rem;
+      opacity: 0.6;
+    }
+
+    .logo-ring {
+      width: 112px;
+      height: 112px;
+      border-radius: 50%;
+      background: linear-gradient(145deg, #ffffff, #f0e8dd);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 
+        0 12px 32px -12px rgba(80, 60, 40, 0.22),
+        0 0 0 2px rgba(184, 152, 120, 0.25),
+        0 0 0 6px rgba(240, 230, 220, 0.6);
+      margin-bottom: 1.5rem;
+      transition: var(--transition-luxe);
+      position: relative;
+    }
+
+    .logo-ring::after {
+      content: '';
+      position: absolute;
+      inset: -6px;
+      border-radius: 50%;
+      border: 1px solid rgba(184, 152, 120, 0.15);
+      pointer-events: none;
+    }
+
+    .logo-ring:hover {
+      transform: scale(1.02);
+      box-shadow: 
+        0 18px 40px -14px rgba(80, 60, 40, 0.28),
+        0 0 0 2px rgba(184, 152, 120, 0.4),
+        0 0 0 8px rgba(240, 230, 220, 0.8);
+    }
+
+    .logo-ring img {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+      border-radius: 50%;
+      background: white;
+    }
+
+    .school-name {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: 2.2rem;
+      letter-spacing: 0.02em;
+      line-height: 1.1;
+      color: #1b1612;
+      margin-bottom: 0.3rem;
+      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
+    }
+
+    .school-name span {
+      display: block;
+      font-family: var(--font-sans);
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold-deep);
+      margin-top: 0.4rem;
+      font-style: normal;
+    }
+
+    .tagline {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.32em;
+      color: var(--text-muted);
+      font-weight: 500;
+      margin-top: 0.6rem;
+      opacity: 0.85;
+    }
+
+    .tagline::before,
+    .tagline::after {
+      content: '';
+      width: 24px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold-light), transparent);
+    }
+
+    /* ---------- LINK LIST ---------- */
+    .link-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      margin: 2rem 0 2rem;
+    }
+
+    .link-item {
+      display: flex;
+      align-items: center;
+      background: linear-gradient(135deg, #fefcf9 0%, #faf6f0 100%);
+      border: 1px solid #e8ddd0;
+      border-radius: var(--radius-pill);
+      padding: 0.9rem 1.4rem;
+      text-decoration: none;
+      color: var(--text-primary);
+      transition: var(--transition-luxe);
+      box-shadow: var(--shadow-soft);
+      font-weight: 500;
+      font-size: 1rem;
+      gap: 1rem;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transform: scale(1);
+    }
+
+    /* Gold shimmer effect on hover */
+    .link-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 240, 220, 0.5), transparent);
+      transition: left 0.6s ease;
+      pointer-events: none;
+    }
+
+    .link-item:hover::before {
+      left: 100%;
+    }
+
+    .link-item i {
+      width: 2.1rem;
+      font-size: 1.5rem;
+      text-align: center;
+      color: #7a6a5c;
+      transition: var(--transition-luxe);
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .link-item .link-text {
+      flex: 1;
+      letter-spacing: -0.01em;
+      transition: var(--transition-luxe);
+      position: relative;
+      z-index: 1;
+      font-size: 0.98rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+
+    .link-item .link-text .platform-name {
+      display: block;
+      font-weight: 500;
+    }
+
+    .link-item .link-text .platform-stats {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 400;
+      color: var(--text-muted);
+      letter-spacing: 0.03em;
+      opacity: 0.85;
+    }
+
+    .link-item .chevron {
+      color: #c9b8a6;
+      font-size: 0.85rem;
+      opacity: 0.6;
+      transition: var(--transition-luxe);
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Hover & active states */
+    .link-item:hover {
+      background: #ffffff;
+      border-color: #d4b99b;
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-3px) scale(1.012);
+    }
+
+    .link-item:active {
+      transform: scale(0.98) translateY(0);
+      box-shadow: var(--shadow-soft);
+      transition: all 0.1s;
+    }
+
+    .link-item:hover i {
+      color: var(--gold-deep);
+      transform: scale(1.08);
+    }
+
+    .link-item:hover .chevron {
+      transform: translateX(5px);
+      opacity: 1;
+      color: var(--gold-deep);
+    }
+
+    /* Social icon colors */
+    .link-item.youtube i { color: #c4302b; }
+    .link-item.instagram i { color: #b8346e; }
+    .link-item.facebook i { color: #1877f2; }
+    .link-item.whatsapp i { color: #1f9d5c; }
+
+    /* Deepen on hover */
+    .link-item.youtube:hover i { color: #a52a25; }
+    .link-item.instagram:hover i { color: #942b5a; }
+    .link-item.facebook:hover i { color: #0e5fc9; }
+    .link-item.whatsapp:hover i { color: #177a46; }
+
+    /* ---------- OFFICIAL WEBSITE – DARK BROWN ENHANCED GLOW BUTTON ---------- */
+    .link-item.website {
+      background: linear-gradient(145deg, #4a2f1d 0%, #3a2212 100%);
+      border: 1px solid #6b4a30;
+      box-shadow: 
+        0 8px 24px -8px rgba(74, 47, 29, 0.5),
+        0 0 0 1px rgba(139, 94, 60, 0.3) inset,
+        0 0 20px -4px rgba(139, 94, 60, 0.3);
+      color: #f5ede4;
+      position: relative;
+      overflow: hidden;
+      transition: var(--transition-luxe);
+    }
+
+    .link-item.website::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 220, 180, 0.15), transparent);
+      transition: left 0.7s ease;
+      pointer-events: none;
+    }
+
+    .link-item.website:hover::before {
+      left: 100%;
+    }
+
+    .link-item.website:hover {
+      background: linear-gradient(145deg, #5a3a24 0%, #4a2f1d 100%);
+      border-color: #8b5e3c;
+      box-shadow: 
+        0 12px 32px -8px rgba(74, 47, 29, 0.7),
+        0 0 0 1px rgba(180, 140, 100, 0.4) inset,
+        0 0 32px -4px rgba(139, 94, 60, 0.5),
+        0 0 60px -12px rgba(139, 94, 60, 0.3);
+      transform: translateY(-3px) scale(1.012);
+      color: #ffffff;
+    }
+
+    .link-item.website:active {
+      transform: scale(0.98) translateY(0);
+      box-shadow: 
+        0 4px 12px -4px rgba(74, 47, 29, 0.5),
+        0 0 0 1px rgba(139, 94, 60, 0.2) inset;
+    }
+
+    .link-item.website i {
+      color: #d4b99b;
+      transition: var(--transition-luxe);
+    }
+
+    .link-item.website:hover i {
+      color: #f0dcc8;
+      transform: scale(1.08);
+    }
+
+    .link-item.website .link-text .platform-name {
+      color: #f5ede4;
+      font-weight: 600;
+    }
+
+    .link-item.website .link-text .platform-stats {
+      color: #c4a88a;
+    }
+
+    .link-item.website .chevron {
+      color: #b8956e;
+      opacity: 0.8;
+    }
+
+    .link-item.website:hover .chevron {
+      color: #f0dcc8;
+      transform: translateX(5px);
+      opacity: 1;
+    }
+
+    /* ---------- SEPARATE CONTACT DIVS ---------- */
+    .contact-section {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-top: 1.75rem;
+      padding-top: 1.75rem;
+      border-top: 1px solid #e8ddd0;
+      position: relative;
+    }
+
+    .contact-section::before {
+      content: '✦';
+      position: absolute;
+      top: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--card-bg);
+      padding: 0 0.75rem;
+      color: var(--gold-light);
+      font-size: 0.75rem;
+      line-height: 1;
+    }
+
+    /* Email Div */
+    .contact-div {
+      display: flex;
+      align-items: center;
+      background: linear-gradient(135deg, #fefcf9 0%, #faf6f0 100%);
+      border: 1px solid #e8ddd0;
+      border-radius: var(--radius-pill);
+      padding: 0.85rem 1.4rem;
+      text-decoration: none;
+      color: var(--text-primary);
+      transition: var(--transition-luxe);
+      box-shadow: var(--shadow-soft);
+      font-weight: 500;
+      font-size: 0.95rem;
+      gap: 1rem;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transform: scale(1);
+    }
+
+    .contact-div::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 240, 220, 0.5), transparent);
+      transition: left 0.6s ease;
+      pointer-events: none;
+    }
+
+    .contact-div:hover::before {
+      left: 100%;
+    }
+
+    .contact-div i {
+      width: 2.1rem;
+      font-size: 1.4rem;
+      text-align: center;
+      color: #7a6a5c;
+      transition: var(--transition-luxe);
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .contact-div .contact-text {
+      flex: 1;
+      letter-spacing: -0.01em;
+      transition: var(--transition-luxe);
+      position: relative;
+      z-index: 1;
+      font-size: 0.95rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+
+    .contact-div .contact-text .contact-label {
+      display: block;
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
+
+    .contact-div .contact-text .contact-detail {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 400;
+      color: var(--text-muted);
+      letter-spacing: 0.02em;
+    }
+
+    .contact-div .chevron {
+      color: #c9b8a6;
+      font-size: 0.85rem;
+      opacity: 0.6;
+      transition: var(--transition-luxe);
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .contact-div:hover {
+      background: #ffffff;
+      border-color: #d4b99b;
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-3px) scale(1.012);
+    }
+
+    .contact-div:active {
+      transform: scale(0.98) translateY(0);
+      box-shadow: var(--shadow-soft);
+      transition: all 0.1s;
+    }
+
+    .contact-div:hover i {
+      color: var(--gold-deep);
+      transform: scale(1.08);
+    }
+
+    .contact-div:hover .chevron {
+      transform: translateX(5px);
+      opacity: 1;
+      color: var(--gold-deep);
+    }
+
+    /* Email specific */
+    .contact-div.email i { color: #b34a3a; }
+    .contact-div.email:hover i { color: #963a2d; }
+
+    /* Phone specific */
+    .contact-div.phone i { color: #2a7a4b; }
+    .contact-div.phone:hover i { color: #1e6138; }
+
+    /* Location Div – More Bold and Enhanced */
+    .contact-div.location-div {
+      background: linear-gradient(145deg, #4a2f1d 0%, #3a2212 100%);
+      border: 1px solid #6b4a30;
+      box-shadow: 
+        0 8px 24px -8px rgba(74, 47, 29, 0.5),
+        0 0 0 1px rgba(139, 94, 60, 0.3) inset,
+        0 0 20px -4px rgba(139, 94, 60, 0.3);
+      color: #f5ede4;
+      cursor: default;
+      transform: none;
+      padding: 0.95rem 1.4rem;
+    }
+
+    .contact-div.location-div::before {
+      display: none;
+    }
+
+    .contact-div.location-div:hover {
+      background: linear-gradient(145deg, #5a3a24 0%, #4a2f1d 100%);
+      border-color: #8b5e3c;
+      box-shadow: 
+        0 12px 32px -8px rgba(74, 47, 29, 0.7),
+        0 0 0 1px rgba(180, 140, 100, 0.4) inset,
+        0 0 32px -4px rgba(139, 94, 60, 0.5),
+        0 0 60px -12px rgba(139, 94, 60, 0.3);
+      transform: translateY(-2px) scale(1.008);
+    }
+
+    .contact-div.location-div i {
+      color: #d4b99b;
+      font-size: 1.5rem;
+    }
+
+    .contact-div.location-div:hover i {
+      color: #f0dcc8;
+      transform: scale(1.08);
+    }
+
+    .contact-div.location-div .contact-text .contact-label {
+      color: #f5ede4;
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.02em;
+    }
+
+    .contact-div.location-div .contact-text .contact-detail {
+      color: #e0cfbc;
+      font-weight: 600;
+      font-size: 0.85rem;
+      letter-spacing: 0.03em;
+      line-height: 1.4;
+    }
+
+    /* ---------- ANNOUNCEMENT POPUP ---------- */
+    .popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.35s;
+      padding: 1rem;
+    }
+
+    .popup-overlay.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .popup-content {
+      position: relative;
+      max-width: 95vw;
+      max-height: 95vh;
+      border-radius: 32px;
+      overflow: hidden;
+      box-shadow: 0 50px 80px -24px rgba(0, 0, 0, 0.7);
+      background: #0a0a0a;
+      line-height: 0;
+      animation: popIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .popup-content img {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-height: 90vh;
+      object-fit: contain;
+      background: #0a0a0a;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: rgba(20, 20, 20, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: #ffffff;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.9rem;
+      font-weight: 300;
+      cursor: pointer;
+      transition: var(--transition-luxe);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      line-height: 1;
+      z-index: 10;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .close-btn:hover {
+      background: rgba(60, 60, 60, 0.95);
+      transform: scale(1.08);
+      border-color: rgba(255, 255, 255, 0.7);
+    }
+
+    .close-btn:active {
+      transform: scale(0.95);
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0.93); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    /* ---------- MOBILE-FIRST RESPONSIVE ---------- */
+    @media (max-width: 480px) {
+      body {
+        padding: 0.75rem 0.75rem 1.25rem;
+      }
+
+      .portal {
+        padding: 1.9rem 1.25rem 1.9rem;
+        border-radius: 30px;
+      }
+
+      .identity::before {
+        margin-bottom: 0.75rem;
+        font-size: 0.55rem;
+      }
+
+      .school-name {
+        font-size: 1.7rem;
+      }
+
+      .school-name span {
+        font-size: 0.72rem;
+        letter-spacing: 0.16em;
+      }
+
+      .tagline {
+        font-size: 0.65rem;
+        letter-spacing: 0.24em;
+        gap: 0.5rem;
+      }
+
+      .tagline::before,
+      .tagline::after {
+        width: 16px;
+      }
+
+      .logo-ring {
+        width: 92px;
+        height: 92px;
+      }
+
+      .logo-ring img {
+        width: 82px;
+        height: 82px;
+      }
+
+      .link-item {
+        padding: 0.8rem 1.2rem;
+        font-size: 0.94rem;
+        gap: 0.9rem;
+      }
+
+      .link-item i {
+        font-size: 1.35rem;
+        width: 1.8rem;
+      }
+
+      .link-item .link-text {
+        font-size: 0.92rem;
+      }
+
+      .link-item .link-text .platform-stats {
+        font-size: 0.68rem;
+      }
+
+      .link-item .chevron {
+        font-size: 0.78rem;
+      }
+
+      .contact-div {
+        padding: 0.75rem 1.15rem;
+        font-size: 0.9rem;
+        gap: 0.9rem;
+      }
+
+      .contact-div i {
+        font-size: 1.3rem;
+        width: 1.8rem;
+      }
+
+      .contact-div .contact-text .contact-label {
+        font-size: 0.9rem;
+      }
+
+      .contact-div .contact-text .contact-detail {
+        font-size: 0.72rem;
+      }
+
+      .contact-div.location-div .contact-text .contact-label {
+        font-size: 0.95rem;
+      }
+
+      .contact-div.location-div .contact-text .contact-detail {
+        font-size: 0.78rem;
+      }
+
+      .close-btn {
+        width: 44px;
+        height: 44px;
+        font-size: 1.7rem;
+        top: 12px;
+        right: 12px;
+      }
+    }
+
+    /* Very small devices */
+    @media (max-width: 360px) {
+      .portal {
+        padding: 1.6rem 1rem;
+      }
+
+      .link-item {
+        padding: 0.75rem 1rem;
+        gap: 0.75rem;
+      }
+
+      .link-item i {
+        font-size: 1.2rem;
+        width: 1.6rem;
+      }
+
+      .link-item .link-text {
+        font-size: 0.86rem;
+      }
+
+      .link-item .link-text .platform-stats {
+        font-size: 0.64rem;
+      }
+
+      .contact-div {
+        padding: 0.7rem 1rem;
+        gap: 0.75rem;
+      }
+
+      .contact-div i {
+        font-size: 1.15rem;
+        width: 1.6rem;
+      }
+
+      .contact-div .contact-text .contact-label {
+        font-size: 0.85rem;
+      }
+
+      .contact-div .contact-text .contact-detail {
+        font-size: 0.68rem;
+      }
+
+      .contact-div.location-div .contact-text .contact-label {
+        font-size: 0.88rem;
+      }
+
+      .contact-div.location-div .contact-text .contact-detail {
+        font-size: 0.72rem;
+      }
+
+      .school-name {
+        font-size: 1.5rem;
+      }
+
+      .school-name span {
+        font-size: 0.65rem;
+      }
+    }
+
+    /* ---------- ACCESSIBILITY ---------- */
+    .link-item:focus-visible,
+    .contact-div:focus-visible,
+    .close-btn:focus-visible {
+      outline: 2px solid var(--gold-deep);
+      outline-offset: 4px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ANNOUNCEMENT POPUP -->
+  <div class="popup-overlay" id="announcementPopup">
+    <div class="popup-content">
+      <button class="close-btn" id="closePopupBtn" aria-label="Close announcement">&times;</button>
+      <img src="https://plain-apac-prod-public.komododecks.com/202610/08/FUpp60PuQDgvI2DSAz8L/image.png" alt="Charukesi announcement – motion picture">
+    </div>
+  </div>
+
+  <!-- MAIN PORTAL -->
+  <main class="portal">
+    <!-- Identity -->
+    <div class="identity">
+      <div class="logo-ring">
+        <img src="https://yt3.googleusercontent.com/t33AylQnyI7NN65ZTU2Y5tK9ZEhwlzO6oLAwAu0vOMoKjVELT3tnRnWhJqIW11lU3DaYU81IsKA=s160-c-k-c0x00ffffff-no-rj" alt="Charukesi Sangeetha Nirtha Kalakshetram logo">
+      </div>
+      <h1 class="school-name">
+        Charukesi
+        <span>Sangeetha Nirtha Kalakshetram</span>
+      </h1>
+      <div class="tagline">art · rhythm · tradition</div>
+    </div>
+
+    <!-- SOCIAL LINKS -->
+    <div class="link-list">
+      <!-- YouTube -->
+      <a href="https://www.youtube.com/@charukesisangeethanrithaka3836" class="link-item youtube" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-youtube"></i>
+        <span class="link-text">
+          <span class="platform-name">YouTube</span>
+          <span class="platform-stats">1.09K subscribers</span>
+        </span>
+        <i class="fas fa-chevron-right chevron"></i>
+      </a>
+
+      <!-- Instagram -->
+      <a href="https://www.instagram.com/_charukesi__?stkn=c3M4d3Ywa3FxMGd5" class="link-item instagram" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-instagram"></i>
+        <span class="link-text">
+          <span class="platform-name">Instagram</span>
+          <span class="platform-stats">1,549 followers</span>
+        </span>
+        <i class="fas fa-chevron-right chevron"></i>
+      </a>
+
+      <!-- Facebook -->
+      <a href="https://www.facebook.com/people/Charukesi-Sangeetha-Nirtha-Kalakhestram/pfbid02xCZdXYoRADWoFkxPsdVipCQWRNZ7CxLaTxuMsin1S9RXitRruKszUqh4neyBBEvJl/" class="link-item facebook" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-facebook-f"></i>
+        <span class="link-text">
+          <span class="platform-name">Facebook</span>
+          <span class="platform-stats">Follow us</span>
+        </span>
+        <i class="fas fa-chevron-right chevron"></i>
+      </a>
+
+      <!-- WhatsApp -->
+      <a href="https://wa.me/918111884177?text=Name%3A+%0APhone+Number%3A+%0AItem%3A+" class="link-item whatsapp" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-whatsapp"></i>
+        <span class="link-text">
+          <span class="platform-name">WhatsApp</span>
+          <span class="platform-stats">Chat with us</span>
+        </span>
+        <i class="fas fa-chevron-right chevron"></i>
+      </a>
+
+      <!-- Official Website – Dark Brown Enhanced Glow Button -->
+      <a href="https://charukesi.vercel.app/" class="link-item website" target="_blank" rel="noopener noreferrer">
+        <i class="fas fa-globe"></i>
+        <span class="link-text">
+          <span class="platform-name">Official Website</span>
+          <span class="platform-stats">charukesi.vercel.app</span>
+        </span>
+        <i class="fas fa-chevron-right chevron"></i>
+      </a>
+    </div>
+
+    <!-- SEPARATE CONTACT DIVS: Email, Phone, Location -->
+    <div class="contact-section">
+      <!-- Email Div -->
+      <a href="mailto:charukesi2018@gmail.com" class="contact-div email">
+        <i class="fas fa-envelope"></i>
+        <span class="contact-text">
+          <span class="contact-label">Email</span>
+          <span class="contact-detail">charukesi2018@gmail.com</span>
+        </span>
+        <i class="fas fa-chevron-right chevron"></i>
+      </a>
+
+      <!-- Phone Div -->
+      <a href="tel:+918111884177" class="contact-div phone">
+        <i class="fas fa-phone-alt"></i>
+        <span class="contact-text">
+          <span class="contact-label">Phone</span>
+          <span class="contact-detail">+91 81118 84177</span>
+        </span>
+        <i class="fas fa-chevron-right chevron"></i>
+      </a>
+
+      <!-- Location Div – Bold & Enhanced -->
+      <div class="contact-div location-div">
+        <i class="fas fa-map-pin"></i>
+        <span class="contact-text">
+          <span class="contact-label">Location</span>
+          <span class="contact-detail">Kaanjramkulam, Thiruvananthapuram, Kerala</span>
+        </span>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    (function() {
+      const popup = document.getElementById('announcementPopup');
+      const closeBtn = document.getElementById('closePopupBtn');
+
+      closeBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        popup.classList.add('hidden');
+      });
+
+      popup.addEventListener('click', function(e) {
+        if (e.target === popup) {
+          popup.classList.add('hidden');
+        }
+      });
+
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && !popup.classList.contains('hidden')) {
+          popup.classList.add('hidden');
+        }
+      });
+
+      const popupContent = document.querySelector('.popup-content');
+      popupContent.addEventListener('click', function(e) {
+        e.stopPropagation();
+      });
+    })();
+  </script>
+</body>
+</html>
